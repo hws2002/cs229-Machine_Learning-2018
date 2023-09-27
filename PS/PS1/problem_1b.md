@@ -3,16 +3,15 @@ To train a logistic regression classifier with Newton's method.
 starting with $\theta = 0$
 
 
-## shapes
+## shapes (dimensions)
 ```bash
 x_train.shape:  (800, 3)
 y_train.shape:  (800,)
 ```
-note that $x_0 = 1$
-
+!note that $x_0 = 1$
 ## Newton's method
 ### Gradient
-${\partial\over\partial \theta_i}l(\theta) = \sum_j^m (y^{(j)} - g(\theta^Tx^{(j)}))x_i^{(j)}$
+${\partial\over\partial \theta_i}l(\theta) = -{1 \over m}\sum_j^m (y^{(j)} - g(\theta^Tx^{(j)}))x_i^{(j)}$
 
 where $g(z) = {1\over 1 + e^{-z}}$
 and $m = x.shape[0] = 800$
