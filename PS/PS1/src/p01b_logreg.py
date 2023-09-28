@@ -17,14 +17,18 @@ def main(train_path, eval_path, pred_path):
     # *** START CODE HERE ***
     
     # train a logistic regression classifier
-    clf = LogisticRegression()
+    clf = LogisticRegression(eps=1e-5)
     clf.fit(x_train, y_train)
+    
+    # Plot data and decision boundary
+    util.plot(x_train, y_train, clf.theta, 'output/p01b_{}.png'.format(pred_path[-5]))
     
     # load dataset from eval_path
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
     
-    # to save outputs from validation set to pred_path
-    np.savetxt(pred_path, clf.predict(x_eval))
+    # save outputs from validation set to pred_path
+    np.savetxt(pred_path, clf.predict(x_eval), fmt='%d')
+    
     # *** END CODE HERE ***
 
 class LogisticRegression(LinearModel):
@@ -85,6 +89,9 @@ class LogisticRegression(LinearModel):
         # *** START CODE HERE ***
         output = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
-            output[i] = 1 / (1 + np.exp(-np.dot(self.theta, x[i])))
+            if(1 / (1 + np.exp(-np.dot(self.theta, x[i]))) > 0.5):
+                output[i] = 1
+            else :
+                output[i] = 0
         return output
         # *** END CODE HERE ***
