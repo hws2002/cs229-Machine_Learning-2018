@@ -1,8 +1,8 @@
 import numpy as np
 import util
-
 from linear_model import LinearModel
 
+import time
 
 def main(train_path, eval_path, pred_path):
     """Problem 1(b): Logistic regression with Newton's Method.
@@ -15,19 +15,33 @@ def main(train_path, eval_path, pred_path):
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
 
     # *** START CODE HERE ***
-    
+    print("Start training and prediction - Logistic Regression with Newton's Method")
+    # STEP1 : training session
+    start_time = time.time();
     # train a logistic regression classifier
     clf = LogisticRegression(eps=1e-5)
     clf.fit(x_train, y_train)
-    
-    # Plot data and decision boundary
-    util.plot(x_train, y_train, clf.theta, 'output/p01b_{}.png'.format(pred_path[-5]))
+    # Stop recording time for training and output the elapsed time
+    training_time = time.time() - start_time
+    print(f"Training Time: {training_time:.6f} seconds")
     
     # load dataset from eval_path
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
+    #! y_eval is not used in this problem
     
-    # save outputs from validation set to pred_path
-    np.savetxt(pred_path, clf.predict(x_eval), fmt='%d')
+    # STEP2 : prediction session
+    # Restart recording time for prediction
+    start_time = time.time()
+    pred_result = clf.predict(x_eval)
+    prediction_time = time.time() - start_time
+    print(f"Prediction Time: {prediction_time:.6f} seconds")
+    
+    # STEP3 : save outputs
+    np.savetxt(pred_path, pred_result, fmt='%d')
+    
+    # STEP4 : plot the decision boundary
+    util.plot(x_train, y_train, clf.theta, 'output/p01b_logistic_regression_train_{}.png'.format(pred_path[-5]))
+    print("End training and prediction - Logistic Regression with Newton's Method")    
     
     # *** END CODE HERE ***
 

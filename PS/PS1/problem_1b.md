@@ -2,13 +2,24 @@
 To train a logistic regression classifier with Newton's method.
 starting with $\theta = 0$
 
-
+## Linear Model
+have following parameters:
+```python
+    self.theta = theta_0
+    self.step_size = step_size
+    self.max_iter = max_iter
+    self.eps = eps
+    self.verbose = verbose
+```
 ## shapes (dimensions)
 ```bash
 x_train.shape:  (800, 3)
 y_train.shape:  (800,)
 ```
-!note that $x_0 = 1$
+!note that $x_0 = 1$. demonstrated with code below:
+```python
+    x_train, y_train = util.load_dataset(train_path, add_intercept=True)
+```
 ## Newton's method
 ### Gradient
 ${\partial\over\partial \theta_i}l(\theta) = -{1 \over m}\sum_j^m (y^{(j)} - g(\theta^Tx^{(j)}))x_i^{(j)}$
