@@ -15,6 +15,22 @@ y_train.shape (800,)
 
 ## Parameters
 refer to problem_1d.
+
+### $mu_0$ and $mu_1$
+the following codes are equivalent:  
+```python
+    _mu_0 = 0
+    count_0 = 0
+    for i in range(x.shape[0]):
+        if(y[i] == 0):
+            count_0 += 1
+            _mu_0 += x[i]
+    _mu_0 /= count_0
+```
+and 
+```python
+    mu_0 = np.mean(x[y == 0], axis=0)
+```
 ## $\theta$ & Prediction
 refer to problem_1c.  
 $p(y=1|x;\phi ; \mu_0 ; \mu_1 ; \Sigma) = {1\over 1+\exp(-(\theta^Tx + \theta_0))}$  

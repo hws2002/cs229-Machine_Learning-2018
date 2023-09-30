@@ -66,7 +66,7 @@ class LogisticRegression(LinearModel):
         newtheta = np.zeros(x.shape[1]) # (3,)
         gradient = np.zeros(x.shape[1]) #(3,)
         hesse = np.zeros((x.shape[1], x.shape[1])) #(3,3)
-        # step0 : loop until convergence
+        # loop until convergence
         iter = 0
         while (iter < self.max_iter):
             iter += 1
@@ -103,7 +103,7 @@ class LogisticRegression(LinearModel):
         # *** START CODE HERE ***
         output = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
-            if(1 / (1 + np.exp(-np.dot(self.theta, x[i]))) > 0.5):
+            if(1 / (1 + np.exp(-np.dot(self.theta, x[i]))) >= 0.5):
                 output[i] = 1
             else :
                 output[i] = 0

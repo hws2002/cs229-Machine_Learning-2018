@@ -40,7 +40,7 @@ def main(train_path, eval_path, pred_path):
     np.savetxt(pred_path, pred_result, fmt='%d')
     
     # STEP4 : plot the decision boundary
-    
+    util.plot_gda(x_train, y_train, clf.theta, clf.theta_0, 'output/p01e_gda_train_{}.png'.format(pred_path[-5]))
     
     print("End training and prediction - Gaussian Discriminant Analysis (GDA)")
     # *** END CODE HERE ***
@@ -71,6 +71,7 @@ class GDA(LinearModel):
         phi = np.sum(y == 1) / len(y)
             # mu_0, mu_1
         mu_0 = np.mean(x[y == 0], axis=0)
+            
         mu_1 = np.mean(x[y == 1], axis=0)
             # sigma
         sigma = np.zeros((x.shape[1], x.shape[1]))
@@ -81,10 +82,10 @@ class GDA(LinearModel):
             else:
                 sigma += np.dot((x[i] - mu_1).reshape(-1,1), (x[i] - mu_1).reshape(1,-1))
         sigma /= len(y)
-        
+
         # STEP2 : calculate theta
         sigma_inv = np.linalg.inv(sigma)
-        self.theta = np.dot(sigma_inv, (mu_0 - mu_1).reshape(-1,1))
+        self.theta = np.dot(sigma_inv, (mu_1 - mu_0).reshape(-1,1))
         self.theta_0 = 1/2 * (np.dot(np.dot((mu_1 + mu_0).reshape(1,-1),sigma_inv),(mu_0 - mu_1).reshape(-1,1))) - np.log((1-phi)/phi)
         
         # (OPTIONAL) print the value of parameters
