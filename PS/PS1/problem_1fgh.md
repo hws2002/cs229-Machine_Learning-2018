@@ -65,8 +65,8 @@ Analyse the difference between the two classifiers.
 On which dataset does GDA seem to perform worse than logistic regression? Why might this be the case?
 
 ## Analysis
-First of all, it's obvious from the slope of the boundary, that the second dataset got more worse performance than the first dataset.  
+First of all, it's obvious from the slope of the boundary, that the first dataset got more worse performance than the second dataset.  
 We can easily conjecture the reason from the lecture, that GDA is a special case of logistic regression, which assumes that the $p(x|y)$ follows Gaussian distribution. (and covariance matrix of $x$ is the same for both classes)  
-thus, the reason why the second dataset got worse performance is that the conditional probability of $x$ given $y$ is not Gaussian distributed.  
+thus, the reason why the first dataset got worse performance is that the conditional probability of $x$ given $y$ is not Gaussian distributed.  
 
 !recall that when the conditional probability of $x$ given $y$ is Gaussian distributed(assumptions are correct), the GDA will find better fits to the data than logistic regression.
