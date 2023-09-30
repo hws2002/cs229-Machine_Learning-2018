@@ -8,7 +8,11 @@ do
     for i in {1..2}
     do
         echo "Checking problem $problem_n with file $i"
-        diff output/p${problem_n}_pred_${i}.txt output_sol/p${problem_n}_pred_${i}sol.txt -c
+        if (diff output/p${problem_n}_pred_${i}.txt output_sol/p${problem_n}_pred_${i}sol.txt -c) then
+            echo "Correct!"
+        else
+            echo "Wrong!"
+        fi
         echo "Done checking problem $problem_n with file $i"
     done
 done

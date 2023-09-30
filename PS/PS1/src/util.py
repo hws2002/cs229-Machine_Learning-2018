@@ -109,7 +109,7 @@ def plot_gda(x, y, theta, theta_0,save_path=None):
     margin1 = (max(x[:, -2]) - min(x[:, -2]))*0.2
     margin2 = (max(x[:, -1]) - min(x[:, -1]))*0.2
     
-    x1 = np.arange(min(x[:, -2])-margin1, max(x[:, -2]) + margin1, 0.01)
+    x1 = np.arange(min(x[:, -2])-margin1, max(x[:, -2]) + margin1, 0.1)
     x2 = (-1/theta[-1] * (theta_0 + theta[-2] * x1)).reshape(-1)
     plt.plot(x1, x2, c='red', linewidth=2)
     

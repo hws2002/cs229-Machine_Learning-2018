@@ -1,4 +1,4 @@
-# 问题
+# 问题 (e)
 calculate $\phi , \mu_0 , \mu_1, \Sigma$, and use these to derive $\theta$ (gradient descent).
 And use $\theta$ to predict $y$ for $x_{valid}$
 
@@ -14,7 +14,7 @@ y_train.shape (800,)
 
 
 ## Parameters
-refer to problem_1d.
+refer to problem_1d and problem1_c.
 
 ### $mu_0$ and $mu_1$
 the following codes are equivalent:  

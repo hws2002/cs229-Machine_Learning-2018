@@ -1,4 +1,4 @@
-# 问题
+# 问题 (b)
 To train a logistic regression classifier with Newton's method.
 starting with $\theta = 0$
 
