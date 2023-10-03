@@ -17,7 +17,7 @@ def main(train_path, eval_path, pred_path):
     # *** START CODE HERE ***
     print("Start training and prediction - Logistic Regression with Newton's Method")
     # STEP1 : training session
-    start_time = time.time();
+    start_time = time.time()
     # train a logistic regression classifier
     clf = LogisticRegression(eps=1e-5)
     clf.fit(x_train, y_train)

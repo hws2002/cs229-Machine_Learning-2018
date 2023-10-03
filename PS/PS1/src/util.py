@@ -122,3 +122,22 @@ def plot_gda(x, y, theta, theta_0,save_path=None):
     plt.ylabel('x2')
     if save_path is not None:
         plt.savefig(save_path)
+
+
+def plot_lwr(x_train,y_train,x_pred,y_pred,save_path = None):
+    """Plot 
+    Args:
+        x_train: Matrix of training examples, one per row.
+        y_train: vector label of training examples.
+        x_pred : Matrix of prediction points, one per row
+        y_pred : vector label of predictions. float
+        save_path: Path to save the plot.
+    """
+    plt.figure()
+    plt.plot(x_train, y_train, 'bx', linewidth=2)
+    plt.plot(x_pred, y_pred, 'ro', linewidth=2)
+
+    
+    if save_path is not None:
+        plt.savefig(save_path)
+    

@@ -4,7 +4,7 @@
 
 걍 다 듣고싶지만 우선 cs229, cs 230, cs231, cs234, cs236, STATS214, CS246 를 들을 예정이다.  
 
-군대에서 다할수있겠지..?  
+군대에서 다할수있겠지..?  무조건 다해내야된다.
 
 # Ref
 * [유튭 강의](https://www.youtube.com/watch?v=jGwO_UgTS7I&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)
