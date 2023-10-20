@@ -41,7 +41,7 @@ def main(train_path, eval_path, pred_path):
     
     # STEP4 : plot the decision boundary
     util.plot(x_train, y_train, clf.theta, 'output/p01b_logistic_regression_train_{}.png'.format(pred_path[-5]))
-    print("End training and prediction - Logistic Regression with Newton's Method")    
+    print("--------------------------End training and prediction - Logistic Regression with Newton's Method--------------------------")
     
     # *** END CODE HERE ***
 
@@ -66,6 +66,7 @@ class LogisticRegression(LinearModel):
         newtheta = np.zeros(x.shape[1]) # (3,)
         gradient = np.zeros(x.shape[1]) #(3,)
         hesse = np.zeros((x.shape[1], x.shape[1])) #(3,3)
+        
         # loop until convergence
         iter = 0
         while (iter < self.max_iter):

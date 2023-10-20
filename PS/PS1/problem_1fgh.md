@@ -70,3 +70,8 @@ We can easily conjecture the reason from the lecture, that GDA is a special case
 thus, the reason why the first dataset got worse performance is that the conditional probability of $x$ given $y$ is not Gaussian distributed.  
 
 !recall that when the conditional probability of $x$ given $y$ is Gaussian distributed(assumptions are correct), the GDA will find better fits to the data than logistic regression.
+
+# 问题 (h)
+ For the dataset where GDA performed worse in parts (f) and (g),
+can you find a transformation of the x(i)’s such that GDA performs significantly better?
+What is this transformation?

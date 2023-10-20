@@ -42,7 +42,7 @@ def main(train_path, eval_path, pred_path):
     # STEP4 : plot the decision boundary
     util.plot_gda(x_train, y_train, clf.theta, clf.theta_0, 'output/p01e_gda_train_{}.png'.format(pred_path[-5]))
     
-    print("End training and prediction - Gaussian Discriminant Analysis (GDA)")
+    print("--------------------------End training and prediction - Gaussian Discriminant Analysis (GDA)--------------------------")
     # *** END CODE HERE ***
 
 
