@@ -31,6 +31,7 @@ def main(lr, train_path, eval_path, pred_path):
     prediction_time = time.time() - start_time
     print(f"Prediction Spent: {prediction_time:.6f} seconds")
     np.savetxt(pred_path,y_pred)
+    # np.savetxt(pred_path,y_pred,fmt="%d")
 
     print("--------------------------End training and prediction - Poisson Regression--------------------------")
     # *** END CODE HERE ***
@@ -106,5 +107,6 @@ class PoissonRegression(LinearModel):
         pred = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
             pred[i] = np.exp(np.dot(self.theta.reshape(1,-1),x[i].reshape(-1,1)))
+            # pred[i] = np.floor(np.exp(np.dot(self.theta.reshape(1,-1),x[i].reshape(-1,1))))
         return pred
         # *** END CODE HERE ***
