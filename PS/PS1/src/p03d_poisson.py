@@ -32,7 +32,7 @@ def main(lr, train_path, eval_path, pred_path):
     print(f"Prediction Spent: {prediction_time:.6f} seconds")
     np.savetxt(pred_path,y_pred)
     # np.savetxt(pred_path,y_pred,fmt="%d")
-
+    
     print("--------------------------End training and prediction - Poisson Regression--------------------------")
     # *** END CODE HERE ***
 
@@ -91,8 +91,6 @@ class PoissonRegression(LinearModel):
         print("Iterated for :",iter,"times. Ended with theta : ",self.theta)
         print(f"Training Spent(Batch gradient descent): {fitting_time:.6f} seconds")
         # *** END CODE HERE ***
-        
-
 
     def predict(self, x):
         """Make a prediction given inputs x.
