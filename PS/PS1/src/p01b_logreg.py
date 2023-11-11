@@ -62,37 +62,22 @@ class LogisticRegression(LinearModel):
             y: Training example labels. Shape (m,).
         """
         # *** START CODE HERE ***
-        self.theta = np.zeros(x.shape[1]) # start from 0 vector
-        newtheta = np.zeros(x.shape[1]) # (3,)
-        gradient = np.zeros(x.shape[1]) #(3,)
-        hesse = np.zeros((x.shape[1], x.shape[1])) #(3,3)
-        
-        # # loop until convergence
-        iter = 0
-        while (iter < self.max_iter):
-            iter += 1
-            # step1 : calculate gradient
-            for i in range(self.theta.shape[0]): # 3
-                for j in range(x.shape[0]): # 800
-                    gradient[i] += (-1/x.shape[0]) * (y[j] - 1 / (1 + np.exp(-np.dot(self.theta, x[j])))) * x[j][i]
-                # gradient[i] = -1/x.shape[0] * gradient[i]
-                
-            # step2 : calculate hesse matrix
-            for i in range(hesse.shape[0]):
-                for j in range(hesse.shape[1]):
-                    for k in range(x.shape[0]):
-                        hesse[i][j] += (1/x.shape[0]) * (1 / (1 + np.exp(-np.dot(self.theta, x[k])))) * (1 - 1 / (1 + np.exp(-np.dot(self.theta,x[k])))) * x[k][i] * x[k][j]
-                    # hesse[i][j] = 1/x.shape[0] * hesse[i][j]
+        m,d = x.shape
+        if self.theta is None:
+            self.theta = np.zeros(d)
             
-            # step3 : update theta
-            if (np.linalg.det(hesse) == 0):
-                raise ValueError('Hesse matrix is singular')
+        while True:
+            theta = np.copy(self.theta) # deep copy 
+            h_x = 1/(1+np.exp(-1 * x @ self.theta ))
+            gradient_J_theta = (-1/m) * np.transpose(x) @ (y - h_x)
+            H = (1/m)*np.transpose(x)@ np.diag( (h_x*(1-h_x)).flatten() ) @ x
+            # H = (x.T * h_x * (1 - h_x)).dot(x) / m  
+            self.theta = self.theta -  np.linalg.inv(H)@gradient_J_theta
             
-            self.theta = newtheta
-            newtheta = newtheta - np.dot(np.linalg.inv(hesse), gradient)
-            if( np.linalg.norm(newtheta - self.theta) < self.eps):
-                self.theta = newtheta
+            # terminate condition
+            if  np.linalg.norm(self.theta-theta,ord=1) < self.eps:
                 break
+        
         # *** END CODE HERE ***
         
     def predict(self, x):
