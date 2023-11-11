@@ -67,31 +67,34 @@ class LogisticRegression(LinearModel):
         gradient = np.zeros(x.shape[1]) #(3,)
         hesse = np.zeros((x.shape[1], x.shape[1])) #(3,3)
         
-        # loop until convergence
+        # # loop until convergence
         iter = 0
         while (iter < self.max_iter):
             iter += 1
             # step1 : calculate gradient
             for i in range(self.theta.shape[0]): # 3
                 for j in range(x.shape[0]): # 800
-                    gradient[i] += (y[j] - 1 / (1 + np.exp(-np.dot(self.theta, x[j])))) * x[j][i]
-                gradient[i] = -1/x.shape[0] * gradient[i]
+                    gradient[i] += (-1/x.shape[0]) * (y[j] - 1 / (1 + np.exp(-np.dot(self.theta, x[j])))) * x[j][i]
+                # gradient[i] = -1/x.shape[0] * gradient[i]
+                
             # step2 : calculate hesse matrix
             for i in range(hesse.shape[0]):
                 for j in range(hesse.shape[1]):
                     for k in range(x.shape[0]):
-                        hesse[i][j] += (1 / (1 + np.exp(-np.dot(self.theta, x[k])))) * (1 - 1 / (1 + np.exp(-np.dot(self.theta,x[k])))) * x[k][i] * x[k][j]
-                    hesse[i][j] = 1/x.shape[0] * hesse[i][j]
+                        hesse[i][j] += (1/x.shape[0]) * (1 / (1 + np.exp(-np.dot(self.theta, x[k])))) * (1 - 1 / (1 + np.exp(-np.dot(self.theta,x[k])))) * x[k][i] * x[k][j]
+                    # hesse[i][j] = 1/x.shape[0] * hesse[i][j]
+            
             # step3 : update theta
             if (np.linalg.det(hesse) == 0):
                 raise ValueError('Hesse matrix is singular')
+            
             self.theta = newtheta
             newtheta = newtheta - np.dot(np.linalg.inv(hesse), gradient)
             if( np.linalg.norm(newtheta - self.theta) < self.eps):
                 self.theta = newtheta
                 break
         # *** END CODE HERE ***
-
+        
     def predict(self, x):
         """Make a prediction given new inputs x.
 

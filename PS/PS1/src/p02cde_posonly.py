@@ -28,13 +28,13 @@ def main(train_path, valid_path, test_path, pred_path):
     # *** START CODE HERE ***
     # Part (c): Train and test on true labels
     # Make sure to save outputs to pred_path_c
-    ## Step0 : check the size of datas
+    ## Step0 : Initialize model and check the size of datas
+    clf = LogisticRegression()
     train_x, train_t = util.load_dataset(train_path,label_col='t',add_intercept=True)
-        # print("train_x.shape : ",train_x.shape)
-        # print("train_t.shape : ",train_t.shape)
+        # print("train_x.shape : ",train_x.shape) #(1250,3)
+        # print("train_t.shape : ",train_t.shape) #(1250,)
     
     ## Step1 : Train
-    clf = LogisticRegression()
     clf.fit(train_x, train_t)
     
     ## Step2 : Test (predict)
@@ -46,6 +46,31 @@ def main(train_path, valid_path, test_path, pred_path):
     
     # Part (d): Train on y-labels and test on true labels
     # Make sure to save outputs to pred_path_d
+    print("Start training and prediction - Train on y-labels")
+    
+    ## Step0 : initialize model and check the size of datas
+    clf = LogisticRegression()
+    train_x, train_y = util.load_dataset(train_path,label_col='y',add_intercept=True)
+    # print("train_x_pos.shape : ", train_x_pos.shape)
+    # print("train_y_pos.shape : ", train_y_pos.shape)
+    ## Step1 : Train
+    
+    # pick out train examples where y-labels are 1
+    # selected_train_x_pos = train_x[train_y == 1]
+    # selected_train_y_pos = train_y[train_y == 1]
+    
+    # print("selected_train_x_pos.shape : ", selected_train_x_pos.shape)
+    # print("selected_train_y_pos.shape : ", selected_train_y_pos.shape)
+    
+    clf.fit(train_x,train_y)
+    
+    
+    ## Step2 : Test (predict)
+    result_pred = clf.predict(test_x)
+    
+    ## Step3 : save outputs
+    np.savetxt(pred_path_d,result_pred,'%d')
+    
     # Part (e): Apply correction factor using validation set and test on true labels
     # Plot and use np.savetxt to save outputs to pred_path_e
     # *** END CODER HERE
