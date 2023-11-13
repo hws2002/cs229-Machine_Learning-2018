@@ -37,7 +37,7 @@ def main(train_path, eval_path, pred_path):
     print(f"Prediction Time: {prediction_time:.6f} seconds")
     
     # STEP3 : save outputs
-    np.savetxt(pred_path, pred_result, fmt='%d')
+    np.savetxt(pred_path, pred_result >= 0.5 , fmt='%d')
     
     # STEP4 : plot the decision boundary
     util.plot(x_train, y_train, clf.theta, 'output/p01b_logistic_regression_train_{}.png'.format(pred_path[-5]))
@@ -72,7 +72,13 @@ class LogisticRegression(LinearModel):
             gradient_J_theta = (-1/m) * np.transpose(x) @ (y - h_x)
             H = (1/m)*np.transpose(x)@ np.diag( (h_x*(1-h_x)).flatten() ) @ x
             # H = (x.T * h_x * (1 - h_x)).dot(x) / m  
+            
+            # raise error if H is singular
+            if (np.linalg.det(H) == 0):
+                raise ValueError('Hesse matrix is singular')
+            
             self.theta = self.theta -  np.linalg.inv(H)@gradient_J_theta
+            
             
             # terminate condition
             if  np.linalg.norm(self.theta-theta,ord=1) < self.eps:
@@ -90,6 +96,12 @@ class LogisticRegression(LinearModel):
             Outputs of shape (m,).
         """
         # *** START CODE HERE ***
+        if self.theta is None:
+            raise ValueError("self.theta is not initialized or is set to None.")
+        ## Vectorization
+        return 1/(1 + np.exp(-1 * x@self.theta))
+        
+        ## scratch
         output = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
             if(1 / (1 + np.exp(-np.dot(self.theta, x[i]))) >= 0.5):

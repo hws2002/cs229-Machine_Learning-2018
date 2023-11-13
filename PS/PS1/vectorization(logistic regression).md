@@ -82,7 +82,7 @@ Second one (better than the first one, but still needs improvement)
 ### Vectorization
 
 ```python
-m,d = x.shape
+        m,d = x.shape
         if self.theta is None:
             self.theta = np.zeros(d)
             
@@ -122,7 +122,7 @@ Forth one (best)
                 break
 ```
 
-## Advantages and Disadvantages
+### Advantages and Disadvantages
 the following is the answer from Chat-GPT4 under I asked to compare the second and the forth code snippet.
 
 
@@ -146,3 +146,6 @@ the following is the answer from Chat-GPT4 under I asked to compare the second a
     - The handling of intermediate variables like `gradient` and `Hesse` matrix in the first snippet might introduce additional scope for error or variance.
 
 These factors combined can lead to different results even though the overarching methodology (Newton's method for logistic regression) is the same. In practice, the second approach is generally preferred due to its efficiency and reduced risk of numerical errors.
+
+
+## Results
