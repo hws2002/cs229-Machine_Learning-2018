@@ -18,7 +18,3 @@ In this problem, we are going to inherit logitic model of problem1b, which uses 
 # 问题 (d)
 Now we only train on y-labels. and test on true labels
 
-
-## Validation set
-Upon train on y-labels, by chance, I found that accuracy for training set and validation set was both 0.5.  
-
