@@ -6,3 +6,5 @@
 * [깃헙 자료](https://github.com/maxim5/cs229-2018-autumn/tree/main)
 * [Courses](https://online.stanford.edu/programs/artificial-intelligence-graduate-certificate)
 * [study guides](https://stanford.edu/~shervine/teaching/cs-229/cheatsheet-supervised-learning)
+
+* [CheatSheet](https://github.com/afshinea/stanford-cs-229-machine-learning)
