@@ -15,7 +15,7 @@ def calc_grad(X, Y, theta):
     return grad
 
 
-def logistic_regression(X, Y):
+def logistic_regression(X, Y, learning_rate = 10):
     """Train a logistic regression model."""
     m, n = X.shape
     theta = np.zeros(n)
@@ -29,20 +29,21 @@ def logistic_regression(X, Y):
         theta = theta - learning_rate * grad
         if i % 10000 == 0:
             print('Finished %d iterations' % i)
+            # print("Theta ended with :", theta)
         if np.linalg.norm(prev_theta - theta) < 1e-15:
             print('Converged in %d iterations' % i)
             break
     return
 
 
-def main():
+def main(learning_rate = 10):
     print('==== Training model on data set A ====')
     Xa, Ya = util.load_csv('../data/ds1_a.csv', add_intercept=True)
-    logistic_regression(Xa, Ya)
+    logistic_regression(Xa, Ya,learning_rate)
 
     print('\n==== Training model on data set B ====')
     Xb, Yb = util.load_csv('../data/ds1_b.csv', add_intercept=True)
-    logistic_regression(Xb, Yb)
+    logistic_regression(Xb, Yb, learning_rate)
 
 
 if __name__ == '__main__':
