@@ -27,11 +27,13 @@ def logistic_regression(X, Y, learning_rate = 10):
         prev_theta = theta
         grad = calc_grad(X, Y, theta)
         theta = theta - learning_rate * grad
+        # learning_rate *= 1/(i**2)
         if i % 10000 == 0:
             print('Finished %d iterations' % i)
             # print("Theta ended with :", theta)
         if np.linalg.norm(prev_theta - theta) < 1e-15:
             print('Converged in %d iterations' % i)
+            # util.plot2(X,Y,theta,savepath)
             break
     return
 
