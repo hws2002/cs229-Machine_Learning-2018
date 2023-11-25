@@ -26,15 +26,9 @@ def init_centroids(num_clusters, image):
     """
 
     # *** START YOUR CODE ***
-    # raise NotImplementedError('init_centroids function not implemented')
-    height, width, channels = image.shape
-    random_rows = np.random.choice(height, num_clusters, replace = True)
-    random_columns = np.random.choice(width, num_clusters, replace = True)
-    
-    centroids_init = image[random_rows,random_columns]
-    # H, W, C = image.shape
-    # idx = np.random.randint(H * W, size=num_clusters)
-    # centroids_init = image[(idx / W).astype(int), idx % W].astype('float64')
+    H, W, C = image.shape
+    idx = np.random.randint(H * W, size=num_clusters)
+    centroids_init = image[(idx / W).astype(int), idx % W].astype('float64')
     # *** END YOUR CODE ***
 
     return centroids_init
@@ -69,36 +63,33 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
                 # Find closest centroid and update `new_centroids`
         # Update `new_centroids`
     H, W, C = image.shape
-    iter = 0
-    idx = np.zeros((H,W))
-    while True:
-        iter+=1
-        
-        # 方案1
-        # numerators = np.zeros((num_clusters,3),dtype=np.float64)
-        # denominators = np.zeros((num_clusters,1),dtype = np.float64)
+    idx = np.zeros((H, W))
+    it = 0
+    while it < max_iter:
+        it += 1
+        if it % print_every == 0:
+            print(f'Update centroids for {it} iterations')
+
         for i in range(H):
             for j in range(W):
-                idx[i,j] = np.argmin(np.linalg.norm(image[i,j] - centroids,axis=1))
-                # index = int(idx[i,j])
-                # 方案1
-                # numerators[index] += image[i,j]
-                # denominators[index] +=1
-        # 方案1
-        # centroids = (numerators / denominators)
+                idx[i, j] = np.argmin(np.linalg.norm(centroids - image[i, j], axis=1))
         
-        # 方案2
+        '''
+        # Print loss which should be monotonically decreasing
+        loss = 0
+        for i in range(H):
+            for j in range(W):
+                loss += np.linalg.norm(centroids[int(idx[i,j])] - image[i, j])
+        print(loss / (H*W))
+        '''
+        
         for k in range(centroids.shape[0]):
-            pixel_group = image[idx == k]
-            if pixel_group.shape[0] > 0 :
-                centroids[k] = pixel_group.mean(axis = 0) # take a mean along the columns
+            pixel_group = image[idx==k]
+            if pixel_group.shape[0] > 0:
+                centroids[k] = pixel_group.mean(axis=0)
 
-        if iter % print_every == 0 :
-            print('Finished %d iterations' % iter)
-        if iter > max_iter :
-            break
-    # *** END YOUR CODE ***
     new_centroids = centroids.astype(int)
+    # *** END YOUR CODE ***
 
     return new_centroids
 
@@ -126,12 +117,12 @@ def update_image(image, centroids):
             # Initialize `dist` vector to keep track of distance to every centroid
             # Loop over all centroids and store distances in `dist`
             # Find closest centroid and update pixel value in `image`
-    # *** END YOUR CODE ***
     H, W, C = image.shape
     for i in range(H):
         for j in range(W):
-            idx = np.argmin(np.linalg.norm( image[i,j] - centroids, axis=1))
-            image[i,j] = centroids[idx]
+            image[i, j] = centroids[np.argmin(np.linalg.norm(centroids - image[i, j], axis=1))]
+    # *** END YOUR CODE ***
+
     return image
 
 
@@ -167,7 +158,7 @@ def main(args):
     centroids = update_centroids(centroids_init, image, max_iter, print_every)
 
     # Load large image
-    image = mpimg.imread(image_path_large)
+    image = np.copy(mpimg.imread(image_path_large))
     image.setflags(write=1)
     print('[INFO] Loaded large image with shape: {}'.format(np.shape(image)))
     plt.figure(figure_idx)
